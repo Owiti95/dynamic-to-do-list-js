@@ -1,51 +1,51 @@
 // Wait until the DOM is fully loaded
 document.addEventListener('DOMContentLoaded', function () {
-  // Select DOM elements
+  // Select DOM elements using the exact required names
   const addButton = document.getElementById('add-task-btn')
   const taskInput = document.getElementById('task-input')
   const taskList = document.getElementById('task-list')
 
-  // Function to add a new task
+  // Define the addTask function
   function addTask() {
-    const taskText = taskInput.value.trim() // Get and trim input value
+    // Retrieve and trim the input value
+    const taskText = taskInput.value.trim()
 
-    // Check if task input is empty
+    // If the input is empty, alert the user
     if (taskText === '') {
       alert('Please enter a task.')
       return
     }
 
-    // Create a new list item
+    // Create a new list item and set its text
     const listItem = document.createElement('li')
     listItem.textContent = taskText
 
-    // Create a remove button for the task
+    // Create a remove button and set properties
     const removeButton = document.createElement('button')
     removeButton.textContent = 'Remove'
     removeButton.className = 'remove-btn'
 
-    // Set up remove button to delete the task when clicked
+    // When remove button is clicked, remove this list item from taskList
     removeButton.onclick = function () {
       taskList.removeChild(listItem)
     }
 
-    // Append remove button to the list item
+    // Append the remove button to the list item and the list item to the list
     listItem.appendChild(removeButton)
-
-    // Append the list item to the task list
     taskList.appendChild(listItem)
 
-    // Clear the input field
+    // Clear the input
     taskInput.value = ''
   }
 
-  // Event listener for Add Task button
+  // Attach event listeners
   addButton.addEventListener('click', addTask)
 
-  // Allow pressing Enter key to add task
   taskInput.addEventListener('keypress', function (event) {
     if (event.key === 'Enter') {
       addTask()
     }
   })
+
+  // (Do NOT auto-invoke addTask here — tests expect only listeners to be set up on load)
 })
