@@ -1,51 +1,49 @@
 // Wait until the DOM is fully loaded
 document.addEventListener('DOMContentLoaded', function () {
-  // Select DOM elements using the exact required names
+  // Select DOM elements
   const addButton = document.getElementById('add-task-btn')
   const taskInput = document.getElementById('task-input')
   const taskList = document.getElementById('task-list')
 
-  // Define the addTask function
+  // Function to add a new task
   function addTask() {
-    // Retrieve and trim the input value
     const taskText = taskInput.value.trim()
 
-    // If the input is empty, alert the user
+    // Check if task input is empty
     if (taskText === '') {
       alert('Please enter a task.')
       return
     }
 
-    // Create a new list item and set its text
-    const listItem = document.createElement('li')
-    listItem.textContent = taskText
+    // Create a new list item
+    const li = document.createElement('li')
+    li.textContent = taskText
 
-    // Create a remove button and set properties
+    // Create a remove button for the task
     const removeButton = document.createElement('button')
     removeButton.textContent = 'Remove'
     removeButton.className = 'remove-btn'
 
-    // When remove button is clicked, remove this list item from taskList
+    // Add click event to remove the task
     removeButton.onclick = function () {
-      taskList.removeChild(listItem)
+      taskList.removeChild(li)
     }
 
-    // Append the remove button to the list item and the list item to the list
-    listItem.appendChild(removeButton)
-    taskList.appendChild(listItem)
+    // Append button to list item and item to list
+    li.appendChild(removeButton)
+    taskList.appendChild(li)
 
-    // Clear the input
+    // Clear the input field
     taskInput.value = ''
   }
 
-  // Attach event listeners
+  // Add task when button is clicked
   addButton.addEventListener('click', addTask)
 
+  // Add task when Enter key is pressed
   taskInput.addEventListener('keypress', function (event) {
     if (event.key === 'Enter') {
       addTask()
     }
   })
-
-  // (Do NOT auto-invoke addTask here — tests expect only listeners to be set up on load)
 })
